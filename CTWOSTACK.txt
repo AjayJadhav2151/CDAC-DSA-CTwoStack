@@ -1,0 +1,167 @@
+package CTwoStack;
+
+import java.util.Scanner;
+
+public class Ctwostack {
+
+		private int top1;
+		private int top2;
+		private int []stk;
+		private int size;
+		
+		public Ctwostack() {
+			size = 0;
+			stk = new int[size];
+			top1 = -1; 
+			top2 = size; 
+		}
+		
+		Scanner sc = new Scanner(System.in);
+		
+		public void initstack() {
+			System.out.println("Enter the size of Stack");
+			size = sc.nextInt();
+			stk = new int[size];
+			top1 = -1; 
+			top2 = size; 
+		}
+		
+		public boolean isfull() {
+			if(top2==(top1+1)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		public boolean isEmpty() {
+			if(top1==-1 && top2==size) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		public void push1(int value) {
+			if(!isfull()) {
+				stk[++top1] = value;
+			} else {
+				System.out.println("Stack is overflow.....");
+			}
+		}
+		
+		public void push2(int value) {
+			if(!isfull()) {
+				stk[--top2] = value;
+			} else {
+				System.out.println("Stack is overflow.....");
+			}
+		}
+		
+		public int pop1() {
+			int value = 0;
+			if(!isEmpty() && top1!=-1) {
+				value = stk[top1];
+				top1--;
+			} else {
+				System.out.println("Stack is underflow.....");
+			}
+			return value;
+		}
+		
+		public int pop2() {
+			int value = 0;
+			if(!isEmpty() && top2 !=size) {
+				value = stk[top2];
+				top2++;
+			} else {
+				System.out.println("Stack is underflow.....");
+			}
+			return value;
+		}
+		
+		public void display() {
+			if(!isEmpty()) {
+				System.out.print("s1 -> ");
+				for(int i=top1;i>=0;i--) {
+					System.out.print(stk[i]+" ");
+				}
+				for(int i=top2;i<size;i++) {
+					System.out.print(" "+stk[i]);
+				}
+				System.out.println("<- s2");
+			} else {
+				System.out.println("Stack is Underflow");
+			}
+		}
+		
+}
+*******************************************************************************************************************
+package CTwoStack;
+
+import java.util.Scanner;
+
+public class ClientCTwoStack {
+	public static void main(String[] args) {
+		Ctwostack ct = new Ctwostack();
+		Scanner sc = new Scanner(System.in);
+		
+		int value = 0,option = 0;
+		
+		do {
+			System.out.println("********MENU*****************");
+			System.out.println("\n 1.initilize Stack"+
+								"\n 2.push stack1"+
+								"\n 3.push stack2"+
+								"\n 4.pop stack1"+
+								"\n 5.pop stack2"+
+								"\n 9.display"+
+								"\n 0.exit");
+			System.out.println("Enter your Choice: ");
+			option = sc.nextInt();
+			
+			switch (option) {
+			case 1: {
+				ct.initstack();
+				System.out.println("New Stack Added...");
+				break;
+			}
+			case 2 :{
+				System.out.println("Enter values for stack1: ");
+				value = sc.nextInt();
+				
+				ct.push1(value);
+				break;
+			}
+			case 3 :{
+				System.out.println("Enter values for stack2: ");
+				value = sc.nextInt();
+				
+				ct.push2(value);
+				break;
+			}
+			case 4:{
+				value = ct.pop1();
+				if(value != -1) {
+					System.out.println("popped from stack1::"+value);
+				}
+				break;
+			}
+			case 5:{
+				value = ct.pop2();
+				if(value != -1) {
+					System.out.println("popped from stack2::"+value);
+				}
+				break;
+			}
+			case 9:{
+				ct.display();
+				break;
+			}
+			case 0:{
+				System.exit(0);
+			}
+		}
+		} while(option != 0);
+	}
+}
